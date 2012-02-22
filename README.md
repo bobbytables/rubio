@@ -1,6 +1,7 @@
 # Rubio
 
-TODO: Write a gem description
+The Rdio API gem.
+I wanted a good way to access the Rdio API. I only found gem written in Ruby that seemed to do it. But I wanted to make my own.
 
 ## Installation
 
