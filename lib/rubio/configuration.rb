@@ -16,6 +16,8 @@ module Rubio
 
       def configure(&block)
         block.arity < 1 ? instance_eval(&block) : block.call(self)
+
+        return true
       end
     end
   end
