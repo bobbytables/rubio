@@ -10,6 +10,7 @@ module Rubio
   end
 
   autoload :Configuration, 'rubio/configuration'
+  autoload :OAuth,         'rubio/oauth'
 end
 
 Rubio::Configuration.create_options
