@@ -1,9 +1,9 @@
+# encoding: UTF-8
+
 require 'httparty'
 require 'securerandom'
 require 'base64'
-# require 'openssl'
-require 'digest'
-require 'digest/sha1'
+require 'openssl'
 
 module Rubio
   class OAuth
@@ -43,12 +43,7 @@ module Rubio
     def authorization_header
       values = authorization
       ap [hmac_key, hmac_body]
-
-      hmac = Digest::HMAC.new(hmac_key, Digest::SHA1)
-      hmac.update(hmac_body)
-
-      values[:oauth_signature] = [hmac.digest].pack('m0').strip
-      ap values[:oauth_signature]
+      values[:oauth_signature] = Base64.encode64(OpenSSL::HMAC.digest(OpenSSL::Digest::SHA1.new, hmac_key, hmac_body)).strip
       
       'OAuth ' + values.collect {|key,value| "#{key}=\"#{value}\"" }.join(', ')
     end
@@ -71,14 +66,14 @@ module Rubio
 
     def hmac_key
       parts = [Configuration.rdio_secret, self.access_token_secret]
-      parts.join('&').encode(Encoding::UTF_8)
+      parts.join('&')
     end
 
     def hmac_body
       # method, url, body (params)
       parts = ['POST', API_URL].map {|p| percent_escape(p) }
       parts << percent_escape({:method => @method}.merge(@params).merge(authorization).to_param)
-      parts.join('&').encode(Encoding::UTF_8)
+      parts.join('&')
     end
   end
 end
