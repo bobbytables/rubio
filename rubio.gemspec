@@ -15,7 +15,6 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = Rubio::VERSION
 
-  gem.add_runtime_dependency('oauth', '~> 0.4') # Authentication
   gem.add_runtime_dependency('hashie') # Hash method access
   gem.add_runtime_dependency('httparty') # Used to tell Rdio to let us in
   gem.add_runtime_dependency('activesupport', '~> 3.2') # Hash method access
